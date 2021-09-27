@@ -1,5 +1,0 @@
-syntax = "proto3";
-package mobiuspace.adx.log.detail.base  ;
-message AdxExtraContext {
-  string abTestTag = 1 ;
-}

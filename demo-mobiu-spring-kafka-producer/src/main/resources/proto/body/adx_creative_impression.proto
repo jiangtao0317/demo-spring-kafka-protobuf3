@@ -1,7 +1,0 @@
-syntax = "proto3";
-package mobiuspace.adx.log.detail.body ;
-//曝光日志内容实体
-message AdxCreativeImpression {
-
-}
-
