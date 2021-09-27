@@ -1,0 +1,7 @@
+syntax = "proto3";
+package mobiuspace.adx.log.detail.base ;
+message AdxDemandContext {
+  int64 demandId = 1 ;
+  int64 systemId = 2 ;
+  string placement = 3 ;
+}

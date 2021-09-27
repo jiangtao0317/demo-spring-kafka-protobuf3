@@ -1,0 +1,14 @@
+syntax = "proto3";
+package demo ;
+
+message B {
+  string name = 1 ;
+  Status status = 2 ;
+  int32 age = 3 ;
+
+  enum Status {
+    ENABLE = 0 ;
+    DISABLE = 1 ;
+    PAUSE = 2 ;
+  }
+}

@@ -1,0 +1,9 @@
+syntax = "proto3";
+package demo ;
+import "d.proto";
+
+message C {
+  string name = 1 ;
+  repeated string hobbies = 2 ;
+  D d = 3 ;
+}
