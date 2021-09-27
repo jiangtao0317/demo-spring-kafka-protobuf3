@@ -1,0 +1,16 @@
+syntax = "proto3";
+package mobiuspace.adx.log.detail.body ;
+import "base/adx_demand_context.proto";
+//dsp 赢得竞价日志实体
+message AdxDemandWin {
+  bool hasWinner = 1 ;
+  base.AdxDemandContext demandContext = 2 ;
+  WinnerBody body = 3 ;
+}
+
+message WinnerBody{
+  string cur = 2 ; //单位
+  double bidPrice = 3 ; //出价
+  double winPrice = 4 ; //成交价
+}
+

@@ -1,0 +1,8 @@
+syntax = "proto3";
+package mobiuspace.adx.log.detail.base ;
+message AdxAppContext {
+  string name = 1;
+  string version = 2 ;
+  string bundle = 3 ;
+  string domain = 4;
+}
