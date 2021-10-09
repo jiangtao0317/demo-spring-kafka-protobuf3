@@ -6,12 +6,11 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import com.google.protobuf.util.JsonFormat;
 import com.google.protobuf.util.JsonFormat.TypeRegistry;
-import demo.BOuterClass.B;
-import demo.COuterClass.C;
+
+import com.monetization.adx.proto.base.AdxDeviceContextOuterClass.AdxDeviceContext;
+import com.monetization.adx.proto.body.AdxDemandRequestOuterClass.AdxDemandRequest;
 import java.io.IOException;
 import java.util.List;
-import mobiuspace.adx.log.detail.base.AdxDeviceContextOuterClass.AdxDeviceContext;
-import mobiuspace.adx.log.detail.body.AdxDemandRequestOuterClass.AdxDemandRequest;
 
 /**
  * @Author:jiangtao
@@ -27,13 +26,13 @@ public class ProtoJsonUtils {
   public static JsonFormat.Printer printer ;
 
   static {
-    descriptors = Lists.newArrayList(B.getDescriptor(), C.getDescriptor());
+    //descriptors = Lists.newArrayList(B.getDescriptor(), C.getDescriptor());
     adxDescriptors = Lists.newArrayList(
         AdxDeviceContext.getDescriptor(),
         AdxDemandRequest.getDescriptor());
     typeRegistry = TypeRegistry.newBuilder()
         .add(adxDescriptors)
-        .add(descriptors)
+    //    .add(descriptors)
         .build();
     printer = JsonFormat.printer().usingTypeRegistry(typeRegistry);
     parser = JsonFormat.parser().usingTypeRegistry(typeRegistry);

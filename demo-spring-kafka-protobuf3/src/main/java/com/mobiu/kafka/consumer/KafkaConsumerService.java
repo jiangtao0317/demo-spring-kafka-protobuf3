@@ -1,8 +1,8 @@
 package com.mobiu.kafka.consumer;
 
 import com.mobiu.kafka.util.ProtoJsonUtils;
+import com.monetization.adx.proto.common.AdxRequestMessageLogOuterClass.AdxRequestMessageLog;
 import lombok.extern.slf4j.Slf4j;
-import mobiuspace.adx.log.detail.common.AdxRequestMessageLogOuterClass.AdxRequestMessageLog;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
