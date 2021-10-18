@@ -1,5 +1,6 @@
 package com.mobiu.kafka.producer;
 
+import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -11,11 +12,17 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class KafkaProducerService {
-  @Autowired
-  private KafkaTemplate kafkaTemplate ;
+
+  @Resource(name = "detailKafkaTemplate")
+  private KafkaTemplate<String,byte[]> kafkaTemplate ;
 
   public String sendMessage(String topic,String key,byte[] data){
     kafkaTemplate.send(topic,key,data);
+    return "success";
+  }
+
+  public String sendMessageToDefaultTopic(byte[] data){
+    kafkaTemplate.sendDefault(data);
     return "success";
   }
 

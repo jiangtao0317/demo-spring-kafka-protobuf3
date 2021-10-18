@@ -3,7 +3,6 @@ package com.mobiu.kafka.util;
 import com.dayuwuxian.ad.adx.core.model.Context;
 import com.dayuwuxian.ad.adx.core.model.rtb.RtbRequest;
 import com.dayuwuxian.ad.adx.core.model.rtb.RtbResponse;
-import com.dayuwuxian.ad.adx.core.storage.mysql.AppSite;
 import com.dayuwuxian.ad.adx.core.storage.mysql.Placement;
 import com.dayuwuxian.ad.adx.core.storage.mysql.Supply;
 import com.dayuwuxian.ad.adx.core.storage.mysql.System;

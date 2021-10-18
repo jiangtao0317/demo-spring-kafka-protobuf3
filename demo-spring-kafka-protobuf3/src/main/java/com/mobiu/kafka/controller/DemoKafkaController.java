@@ -1,7 +1,6 @@
 package com.mobiu.kafka.controller;
 
 
-import ch.qos.logback.core.joran.action.TimestampAction;
 import com.dayuwuxian.ad.adx.core.model.Context;
 import com.dayuwuxian.ad.adx.core.model.enums.AdFormat;
 import com.dayuwuxian.ad.adx.core.model.enums.RequestMethod;
@@ -11,23 +10,27 @@ import com.dayuwuxian.ad.adx.core.storage.mysql.Placement;
 import com.dayuwuxian.ad.adx.core.storage.mysql.Supply;
 import com.dayuwuxian.ad.adx.core.storage.mysql.System;
 import com.dayuwuxian.ad.common.model.AdRequest;
+import com.dayuwuxian.ad.proto.AdxDetailLogOuterClass.AdxDetailLog;
+import com.dayuwuxian.ad.proto.AdxDetailLogOuterClass.AdxDetailLogOrBuilder;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.gson.JsonObject;
 import com.google.protobuf.Any;
-
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.mobiu.kafka.producer.KafkaProducerService;
 import com.mobiu.kafka.util.ProtoBeanGenerator;
-import com.mobiu.kafka.util.TimeUtils;
-
+import com.mobiu.kafka.util.ProtoJsonUtils;
 import com.monetization.adx.proto.base.AdxDemandContextOuterClass.AdxDemandContext;
 import com.monetization.adx.proto.base.AdxEventTypeOuterClass.AdxEventType;
 import com.monetization.adx.proto.body.AdxDemandRequestOuterClass.AdxDemandRequest;
+import com.monetization.adx.proto.body.AdxDemandResponseOuterClass.ResponseBody;
 import com.monetization.adx.proto.common.AdxRequestMessageLogOuterClass.AdxRequestMessageLog;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.List;
+import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
+import nonapi.io.github.classgraph.json.JSONUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,12 +41,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @Desc: 你好
  */
 @RestController
+@Slf4j
 public class DemoKafkaController {
 
   @Autowired
   private KafkaProducerService producerService ;
 
-  public static final String DEMO_TOPIC_PROTOBUF = "staging-demo-protocol";
+  public static final String DEMO_TOPIC_PROTOBUF = "staging-demo-protocol-1-b";
 
 //  @GetMapping("/send/kafka-message")
 //  public String sendMessage(){
@@ -110,7 +114,8 @@ public class DemoKafkaController {
 //  }
 
   @PostMapping("/send/kafka-message-5")
-  public String sendMessage5(@RequestBody AdRequest adRequest){
+  public String sendMessage5(@RequestBody AdRequest adRequest)
+      throws InvalidProtocolBufferException {
     Context context = new Context();
     context.setAdCommonRequest(adRequest);
 
@@ -139,13 +144,31 @@ public class DemoKafkaController {
     AdxRequestMessageLog.Builder logBuilder = ProtoBeanGenerator.generateAdxRequestMessageLog(
         AdxEventType.ADX_DEMAND_REQUEST_EVENT,context);
 
-    AdxDemandContext demandContext = ProtoBeanGenerator.generateAdxDemandContext(system,"2344546565765767");
-    AdxDemandRequest demandRequest = ProtoBeanGenerator.generateAdxDemandRequest(demandContext
-        ,new RtbRequest(),system,"http://localhost:8888/send/kafka-message-5");
-    logBuilder.setContent(Any.pack(demandRequest));
-    producerService.sendMessage(DEMO_TOPIC_PROTOBUF,"vk1",logBuilder.build().toByteArray());
+//    AdxDemandContext demandContext = ProtoBeanGenerator.generateAdxDemandContext(system,"2344546565765767");
+//    AdxDemandRequest demandRequest = ProtoBeanGenerator.generateAdxDemandRequest(demandContext
+//        ,new RtbRequest(),system,"http://localhost:8888/send/kafka-message-5");
+    //logBuilder.setContent(Any.pack(demandRequest));
+
+    log.info(ProtoJsonUtils.toJson(logBuilder.build()));
+
+    producerService.sendMessageToDefaultTopic(logBuilder.build().toByteArray());
+
+    // AdxDetailLog.Builder builder =
+    // AdxDetailLog.newBuilder().setJson(logBuilder.build()
+    // .toString());
+    //producerService.sendMessageToDefaultTopic(builder.build().toByteArray());
     //producerService.sendMessage(DEMO_TOPIC_PROTOBUF,"vk2",logBuilder.build().toString().getBytes(StandardCharsets.UTF_8));
     return "success";
+  }
+
+  public static void main(String[] args) throws InvalidProtocolBufferException {
+    ResponseBody responseBody = ResponseBody.newBuilder()
+            .setBundle("adsd")
+                .setCur("usd").build();
+
+    log.info(StringUtils.deleteWhitespace(ProtoJsonUtils.toJson(responseBody)));
+
+
   }
 
 }

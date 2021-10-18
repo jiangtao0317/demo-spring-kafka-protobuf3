@@ -27,10 +27,12 @@ public class TimeUtils {
   }
 
   public static void main(String[] args) {
-    LocalDateTime localDateTime = LocalDateTime.ofEpochSecond(1632511146,0,ZoneOffset.ofHours(0));
-    System.out.println(localDateTime);
-    Timestamp timestamp = localDateTimeToTimestamp(localDateTime,ZoneOffset.ofHours(0));
-    System.out.println(timestamp);
+//    Timestamp timestamp = localDateTimeToTimestamp(LocalDateTime.now(),ZoneOffset.ofHours(0));
+//    LocalDateTime localDateTime = LocalDateTime.ofEpochSecond(1632511146,0,ZoneOffset.ofHours(0));
+//    System.out.println(localDateTime);
+//    localDateTime.toInstant(ZoneOffset.UTC).toEpochMilli() ;
+//    Timestamp timestamp = localDateTimeToTimestamp(localDateTime,ZoneOffset.ofHours(0));
+//    System.out.println(timestamp);
   }
 
 }

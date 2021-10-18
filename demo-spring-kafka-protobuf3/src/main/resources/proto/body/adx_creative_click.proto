@@ -1,8 +1,0 @@
-syntax = "proto3";
-package mobiuspace.adx.log.detail.body ;
-
-//点击日志内容实体
-message AdxCreativeClick {
-
-}
-

@@ -28,8 +28,9 @@ public class KafkaConsumerService {
 //    }
 //  }
 
-  @KafkaListener(clientIdPrefix = "protobuf-test",concurrency = "1",
-      topics = "staging-demo-protocol", groupId = "demo-vito-2")
+  @KafkaListener(clientIdPrefix = "protobuf-test",
+      topics = "${kafka.adx.log.detail.default-topic}",
+      containerFactory = "detailContainer")
   public void listener(ConsumerRecord<String, byte[]> record) {
     log.info("数据消费成功: {}", record);
     try {
@@ -37,7 +38,7 @@ public class KafkaConsumerService {
 
       AdxRequestMessageLog request = AdxRequestMessageLog.parseFrom(record.value());
       String json = ProtoJsonUtils.toJson(request);
-      log.info("数据消费成功 supplyAduest: {}", json);
+      log.info("[{}] 事件数据消费成功 : {}",request.getEvent(), json.replaceAll(" ",""));
 //      AdxRequestMessageLog log1 = (AdxRequestMessageLog) ProtoJsonUtils.toProtoBean(AdxRequestMessageLog.newBuilder(),json);
 //      log.info("content:{}",log1.getContent().unpack(AdxDemandRequest.class));
     } catch (Exception e) {
@@ -45,14 +46,12 @@ public class KafkaConsumerService {
     }
   }
 
-//  @KafkaListener(clientIdPrefix = "protobuf-test",concurrency = "8",
-//      topics = "staging-demo-protocol-2", groupId = "demo-vito-1")
-//  public void listener1(ConsumerRecord<String, String> record) {
-//    log.info("数据消费成功: {}}", record);
-//    try {
-//      log.info("数据消费成功 Demo: {}", record.value());
-//    } catch (Exception e) {
-//      log.error("【kafka消费服务】 消费发生异常，log异常原因：{}",e);
-//    }
+//  @KafkaListener(clientIdPrefix = "simple-test",
+//      topics = "${kafka.adx.log.simple.defaultTopic}",
+//      containerFactory = "simpleContainer")
+//  public void listener2(ConsumerRecord<Integer,String> record) {
+//    log.info("数据消费成功: {}", record);
 //  }
+
+
 }

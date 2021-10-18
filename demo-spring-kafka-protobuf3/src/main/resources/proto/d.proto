@@ -1,7 +1,0 @@
-syntax = "proto3";
-package demo ;
-
-message D {
-  string name = 1 ;
-  int32 score = 2 ;
-}

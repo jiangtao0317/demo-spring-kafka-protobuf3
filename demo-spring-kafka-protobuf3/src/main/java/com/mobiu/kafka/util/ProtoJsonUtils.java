@@ -9,6 +9,8 @@ import com.google.protobuf.util.JsonFormat.TypeRegistry;
 
 import com.monetization.adx.proto.base.AdxDeviceContextOuterClass.AdxDeviceContext;
 import com.monetization.adx.proto.body.AdxDemandRequestOuterClass.AdxDemandRequest;
+import com.monetization.adx.proto.body.AdxDemandResponseOuterClass.AdxDemandResponse;
+import com.monetization.adx.proto.body.AdxDemandWinOuterClass.AdxDemandWin;
 import java.io.IOException;
 import java.util.List;
 
@@ -27,8 +29,11 @@ public class ProtoJsonUtils {
 
   static {
     //descriptors = Lists.newArrayList(B.getDescriptor(), C.getDescriptor());
+    // 对于 Any 对象一定需要将其真实类型的 描述器 加载进来才能使用下面的 API 进行解析
     adxDescriptors = Lists.newArrayList(
         AdxDeviceContext.getDescriptor(),
+        AdxDemandResponse.getDescriptor(),
+        AdxDemandWin.getDescriptor(),
         AdxDemandRequest.getDescriptor());
     typeRegistry = TypeRegistry.newBuilder()
         .add(adxDescriptors)

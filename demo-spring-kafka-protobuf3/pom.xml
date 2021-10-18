@@ -28,12 +28,6 @@
       <artifactId>spring-kafka</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>com.monetization.adx.proto</groupId>
-      <artifactId>ad-adx-protobuf</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>
-
 <!--    <dependency>-->
 <!--      <groupId>com.google.protobuf</groupId>-->
 <!--      <artifactId>protobuf-java</artifactId>-->
@@ -64,6 +58,11 @@
     <dependency>
       <groupId>com.dayuwuxian.ad</groupId>
       <artifactId>ad-adx-core</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.dayuwuxian.ad</groupId>
+      <artifactId>ad-adx-protobuf</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
@@ -119,7 +118,6 @@
           <execution>
             <goals>
               <goal>compile</goal>
-              <goal>compile-custom</goal>
             </goals>
           </execution>
         </executions>

@@ -1,8 +1,0 @@
-syntax = "proto3";
-package mobiuspace.adx.log.detail.base ;
-message AdxSupplyContext {
-  int64 supplyId = 1 ;
-  string adFormat = 3 ;
-  string placement = 4 ;
-  reserved 2 ;
-}
