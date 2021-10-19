@@ -1,0 +1,6 @@
+syntax = "proto3";
+package com.dayuwuxian.ad.proto ;
+
+message AdxDetailLog{
+  string json = 1 ;
+}
