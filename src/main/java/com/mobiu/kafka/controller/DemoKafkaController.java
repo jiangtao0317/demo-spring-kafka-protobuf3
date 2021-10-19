@@ -144,10 +144,10 @@ public class DemoKafkaController {
     AdxRequestMessageLog.Builder logBuilder = ProtoBeanGenerator.generateAdxRequestMessageLog(
         AdxEventType.ADX_DEMAND_REQUEST_EVENT,context);
 
-//    AdxDemandContext demandContext = ProtoBeanGenerator.generateAdxDemandContext(system,"2344546565765767");
-//    AdxDemandRequest demandRequest = ProtoBeanGenerator.generateAdxDemandRequest(demandContext
-//        ,new RtbRequest(),system,"http://localhost:8888/send/kafka-message-5");
-    //logBuilder.setContent(Any.pack(demandRequest));
+    AdxDemandContext demandContext = ProtoBeanGenerator.generateAdxDemandContext(system,"2344546565765767");
+    AdxDemandRequest demandRequest = ProtoBeanGenerator.generateAdxDemandRequest(demandContext
+        ,new RtbRequest(),system,"http://localhost:8888/send/kafka-message-5");
+    logBuilder.setContent(Any.pack(demandRequest));
 
     log.info(ProtoJsonUtils.toJson(logBuilder.build()));
 
